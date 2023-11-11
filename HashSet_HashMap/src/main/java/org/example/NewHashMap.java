@@ -198,6 +198,9 @@ public class NewHashMap<K, V>  {
         if (table != null && size > 0) {
             size = 0;
             Arrays.fill(table, null);
+            keySet = new HashSet<>();
+            values = new HashSet<>();
+            entrySet = new HashSet<>();
         }
     }
 
@@ -212,4 +215,18 @@ public class NewHashMap<K, V>  {
     public Set<Node<K, V>> entrySet() {
         return entrySet;
     }
+
+     <T> T[][] toArray(T[][] a) {
+        if (a.length >= size) {
+                int i = 0;
+                for (Node<K, V> e : table) {
+                    a[0][i] = (T) e.getKey();
+                    a[1][i] = (T) e.getValue();
+                    i++;
+                }
+            return a;
+        }
+        return null;
+    }
+
 }

@@ -3,7 +3,7 @@ package org.example;
 import java.util.*;
 
 public class NewHashSet<E> {
-    private NewHashMap<E, Object> map;
+    private final NewHashMap<E, Object> map;
     private static final Object PRESENT = new Object();
 
     public NewHashSet() {
@@ -57,8 +57,8 @@ public class NewHashSet<E> {
         return map.put(e, PRESENT) == null;
     }
 
-    public boolean remove(Object o) {
-        return map.remove(o) == PRESENT;
+    public void remove(Object o) {
+        map.remove(o);
     }
 
     public void clear() {
