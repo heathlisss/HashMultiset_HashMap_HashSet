@@ -1,72 +1,68 @@
 package org.example;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
-public class NewHashSet<E> implements Set<E> {
-    @Override
+public class NewHashSet<E> {
+    private NewHashMap<E, Object> map;
+    private static final Object PRESENT = new Object();
+
+    public NewHashSet() {
+        map = new NewHashMap<>();
+    }
+
     public int size() {
-        return 0;
+        return map.size();
     }
 
-    @Override
+
     public boolean isEmpty() {
-        return false;
+        return map.isEmpty();
     }
 
-    @Override
     public boolean contains(Object o) {
-        return false;
+        return map.containsKey(o);
     }
 
-    @Override
     public Iterator<E> iterator() {
-        return null;
+        return map.keySet().iterator();
     }
 
-    @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[map.size()];
+        if (!map.isEmpty()) {
+            int i = 0;
+            for (E key : map.keySet()) {
+                array[i] = key;
+                i++;
+            }
+        }
+        return array;
     }
 
-    @Override
     public <T> T[] toArray(T[] a) {
+        if (a.length >= map.size()) {
+            if (!map.isEmpty()) {
+                int i = 0;
+                for (E key : map.keySet()) {
+                    a[i] = (T) key;
+                    i++;
+                }
+            }
+            return a;
+        }
         return null;
     }
 
-    @Override
     public boolean add(E e) {
-        return false;
+        return map.put(e, PRESENT) == null;
     }
 
-    @Override
     public boolean remove(Object o) {
-        return false;
+        return map.remove(o) == PRESENT;
     }
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
     public void clear() {
-
+        map.clear();
     }
+
 }

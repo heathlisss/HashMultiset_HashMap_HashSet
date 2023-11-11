@@ -3,13 +3,13 @@ package org.example;
 import java.util.*;
 import java.util.HashSet;
 
-public class NewHashMap<K, V> implements Map<K, V> {
+public class NewHashMap<K, V>  {
     public static final int BASE_LENGTH_OF_HASH_TABLE = 16;
     private int size;
     private Node<K, V>[] table;
     private Set<K> keySet;
     private Collection<V> values;
-    private Set<Entry<K, V>> entrySet;
+    private Set<Node<K, V>> entrySet;
 
 
     public NewHashMap() {
@@ -20,7 +20,7 @@ public class NewHashMap<K, V> implements Map<K, V> {
         size = 0;
     }
 
-    static class Node<K, V> implements Map.Entry<K, V> {
+    static class Node<K, V>  {
         final int hash;
         final K key;
         V value;
@@ -66,17 +66,14 @@ public class NewHashMap<K, V> implements Map<K, V> {
     }
 
 
-    @Override
     public int size() {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    @Override
     public boolean containsKey(Object key) {
         return getNode(key) != null;
     }
@@ -98,7 +95,6 @@ public class NewHashMap<K, V> implements Map<K, V> {
         return hash % table.length;
     }
 
-    @Override
     public boolean containsValue(Object value) {
         if (table != null && size > 0) {
             for (Node<K, V> e : table) {
@@ -111,14 +107,12 @@ public class NewHashMap<K, V> implements Map<K, V> {
         return false;
     }
 
-    @Override
     public V get(Object key) {
         Node<K, V> node = getNode(key);
         assert node != null;
         return node.getValue();
     }
 
-    @Override
     public V put(K key, V value) {
         if (containsKey(key)) {
             Node<K, V> node = getNode(key);
@@ -168,7 +162,6 @@ public class NewHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    @Override
     public V remove(Object key) {
         if (containsKey(key)) {
             size--;
@@ -193,7 +186,6 @@ public class NewHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
-    @Override
     public void putAll(Map<? extends K, ? extends V> m) {
         if (!m.isEmpty()) {
             for (Map.Entry entry : m.entrySet()) {
@@ -202,7 +194,6 @@ public class NewHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    @Override
     public void clear() {
         if (table != null && size > 0) {
             size = 0;
@@ -210,18 +201,15 @@ public class NewHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    @Override
     public Set<K> keySet() {
         return keySet;
     }
 
-    @Override
     public Collection<V> values() {
         return values;
     }
 
-    @Override
-    public Set<Entry<K, V>> entrySet() {
+    public Set<Node<K, V>> entrySet() {
         return entrySet;
     }
 }
