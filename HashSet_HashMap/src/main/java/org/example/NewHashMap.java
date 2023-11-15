@@ -3,7 +3,7 @@ package org.example;
 import java.util.*;
 import java.util.HashSet;
 
-public class NewHashMap<K, V>  {
+public class NewHashMap<K, V> {
     public static final int BASE_LENGTH_OF_HASH_TABLE = 16;
     private int size;
     private Node<K, V>[] table;
@@ -15,12 +15,12 @@ public class NewHashMap<K, V>  {
     public NewHashMap() {
         table = new Node[BASE_LENGTH_OF_HASH_TABLE];
         keySet = new HashSet<>();
-        values = new HashSet<>();
+        values = new ArrayList<>();
         entrySet = new HashSet<>();
         size = 0;
     }
 
-    static class Node<K, V>  {
+    static class Node<K, V> {
         final int hash;
         final K key;
         V value;
@@ -65,6 +65,9 @@ public class NewHashMap<K, V>  {
         }
     }
 
+    private int arrayIndex(int hash) {
+        return hash % table.length;
+    }
 
     public int size() {
         return size;
@@ -89,10 +92,6 @@ public class NewHashMap<K, V>  {
             }
         }
         return null;
-    }
-
-    private int arrayIndex(int hash) {
-        return hash % table.length;
     }
 
     public boolean containsValue(Object value) {
@@ -186,10 +185,10 @@ public class NewHashMap<K, V>  {
         return null;
     }
 
-    public void putAll(Map<? extends K, ? extends V> m) {
+    public void putAll(NewHashMap<K, V> m) {
         if (!m.isEmpty()) {
-            for (Map.Entry entry : m.entrySet()) {
-                put((K) entry.getKey(), (V) entry.getValue());
+            for (Node<K, V> entry : m.entrySet()) {
+                put(entry.getKey(), entry.getValue());
             }
         }
     }
@@ -199,7 +198,7 @@ public class NewHashMap<K, V>  {
             size = 0;
             Arrays.fill(table, null);
             keySet = new HashSet<>();
-            values = new HashSet<>();
+            values = new ArrayList<>();
             entrySet = new HashSet<>();
         }
     }
@@ -216,14 +215,14 @@ public class NewHashMap<K, V>  {
         return entrySet;
     }
 
-     <T> T[][] toArray(T[][] a) {
+    <T> T[][] toArray(T[][] a) {
         if (a.length >= size) {
-                int i = 0;
-                for (Node<K, V> e : table) {
-                    a[0][i] = (T) e.getKey();
-                    a[1][i] = (T) e.getValue();
-                    i++;
-                }
+            int i = 0;
+            for (Node<K, V> e : entrySet) {
+                a[i][0] = (T) e.getKey();
+                a[i][1] = (T) e.getValue();
+                i++;
+            }
             return a;
         }
         return null;

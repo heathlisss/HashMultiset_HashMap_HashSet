@@ -13,6 +13,10 @@ public class NewHashMultiset<E> {
     public int size() {
         return map.size();
     }
+    public int numberOfDublicates(E key){
+        if(map.containsKey(key)) return map.get(key);
+        return 0;
+    }
 
     public boolean isEmpty() {
         return map.isEmpty();
