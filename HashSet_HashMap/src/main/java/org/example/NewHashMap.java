@@ -197,9 +197,9 @@ public class NewHashMap<K, V> {
         if (table != null && size > 0) {
             size = 0;
             Arrays.fill(table, null);
-            keySet = new HashSet<>();
-            values = new ArrayList<>();
-            entrySet = new HashSet<>();
+            keySet.clear();
+            values.clear();
+            entrySet.clear();
         }
     }
 
